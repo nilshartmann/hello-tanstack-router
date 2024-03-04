@@ -11,9 +11,13 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root"
+import { Route as NRouteImport } from "./routes/n/route"
 import { Route as ARouteImport } from "./routes/a/route"
 import { Route as IndexImport } from "./routes/index"
+import { Route as XIndexImport } from "./routes/x/index"
 import { Route as AIndexImport } from "./routes/a/index"
+import { Route as XYImport } from "./routes/x/y"
+import { Route as NNnImport } from "./routes/n/nn"
 import { Route as ABImport } from "./routes/a/b"
 import { Route as ACRouteImport } from "./routes/a/_c/route"
 import { Route as ACBbImport } from "./routes/a/_c/bb"
@@ -25,6 +29,11 @@ import { Route as AdFffGggImport } from "./routes/a/(d)/fff/ggg"
 
 // Create/Update Routes
 
+const NRouteRoute = NRouteImport.update({
+  path: "/n",
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ARouteRoute = ARouteImport.update({
   path: "/a",
   getParentRoute: () => rootRoute,
@@ -35,9 +44,24 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const XIndexRoute = XIndexImport.update({
+  path: "/x/",
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AIndexRoute = AIndexImport.update({
   path: "/",
   getParentRoute: () => ARouteRoute,
+} as any)
+
+const XYRoute = XYImport.update({
+  path: "/x/y",
+  getParentRoute: () => rootRoute,
+} as any)
+
+const NNnRoute = NNnImport.update({
+  path: "/nn",
+  getParentRoute: () => NRouteRoute,
 } as any)
 
 const ABRoute = ABImport.update({
@@ -92,6 +116,10 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ARouteImport
       parentRoute: typeof rootRoute
     }
+    "/n": {
+      preLoaderRoute: typeof NRouteImport
+      parentRoute: typeof rootRoute
+    }
     "/a/_c": {
       preLoaderRoute: typeof ACRouteImport
       parentRoute: typeof ARouteImport
@@ -100,9 +128,21 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ABImport
       parentRoute: typeof ARouteImport
     }
+    "/n/nn": {
+      preLoaderRoute: typeof NNnImport
+      parentRoute: typeof NRouteImport
+    }
+    "/x/y": {
+      preLoaderRoute: typeof XYImport
+      parentRoute: typeof rootRoute
+    }
     "/a/": {
       preLoaderRoute: typeof AIndexImport
       parentRoute: typeof ARouteImport
+    }
+    "/x/": {
+      preLoaderRoute: typeof XIndexImport
+      parentRoute: typeof rootRoute
     }
     "/a/(d)/fff": {
       preLoaderRoute: typeof AdFffRouteImport
@@ -142,6 +182,9 @@ export const routeTree = rootRoute.addChildren([
     AdFffRouteRoute.addChildren([AdFffGggRoute, AdFffIndexRoute]),
     AdP1Route,
   ]),
+  NRouteRoute.addChildren([NNnRoute]),
+  XYRoute,
+  XIndexRoute,
 ])
 
 /* prettier-ignore-end */

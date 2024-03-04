@@ -12,8 +12,13 @@ export default function GlobalPageLayout() {
       <div>
         <ul>
           <li><Link to={"/"}>Home</Link></li>
-          <li><Link to={"/a"}>A</Link></li>
-          <li><Link to={"/a/"}>A Slash</Link></li>
+          <li><Link to={"/a"}>A (should point to index route /a)</Link></li>
+          <li><Link to={"/a/"}>A Slash (should also point to index route /a)</Link></li>
+          <li><Link to={"/n"}>N (route.tsx only)</Link></li>
+          <li><Link to={"/n/nn"}>N/NN <span className={"text-red-400"}>Goes to /n component?</span> </Link></li>
+          <li><Link to={"/x"}>/X (index.tsx only)</Link></li>
+          <li><Link to={"/x/y"}>/X/Y <span className={"text-red-400"}>not nested in /x, as /x is index.tsx only</span>(</Link></li>
+
           <li><Link to={"/a/b"}>A/B</Link></li>
           <li><Link to={"/a/aa"}>A/AA (within Layout Route _c)</Link></li>
           <li><Link to={"/a/bb"}>A/BB (within Layout Route _c)</Link></li>
