@@ -1,0 +1,16 @@
+import {createFileRoute, Link, Outlet} from '@tanstack/react-router'
+
+// "Layout" route (route.tsx) here does not work,
+//  because it would collide it would collide with a/index.tsx
+//  as "/a/(d)/route"  also is "/a" at runtime
+export const Route = createFileRoute('/a/(d)/a_route')({
+  component: () => <div className={"bg-orange_2-200 p-8"}>
+
+		<p>Hello /a/(d) Layout Route!</p>
+
+		<Link to={"/a/p1"}></Link>
+
+		<Outlet />
+
+	</div>
+})
